@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.env
+
+# コンテンツ生成エージェントの実行時アウトプット（サンプル構造だけ残す）
+output/research/*.json
+output/posts/*.json
+output/posts/*.md
+logs/*.log
+!output/research/.gitkeep
+!output/posts/.gitkeep
+!logs/.gitkeep
