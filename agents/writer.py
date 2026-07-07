@@ -133,7 +133,7 @@ def generate_draft(idea: dict, pattern: dict, feedback_note: str = None) -> str:
     if feedback_note:
         user_prompt += f"\n\n前回の下書きへのフィードバック（必ず反映して書き直すこと）:\n{feedback_note}"
 
-    return llm_client.complete_text(WRITER_SYSTEM_PROMPT, user_prompt, max_tokens=800, temperature=0.95)
+    return llm_client.complete_text(WRITER_SYSTEM_PROMPT, user_prompt, max_tokens=800)
 
 
 def self_score(text: str, idea: dict, pattern: dict) -> dict:

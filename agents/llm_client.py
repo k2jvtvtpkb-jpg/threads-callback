@@ -32,21 +32,22 @@ def _response_text(resp):
     return "".join(block.text for block in resp.content if block.type == "text").strip()
 
 
-def complete_text(system: str, user: str, max_tokens: int = 1200, temperature: float = 0.9) -> str:
+def complete_text(system: str, user: str, max_tokens: int = 1200) -> str:
+    # claude-sonnet-5 removes temperature/top_p/top_k (400 if sent) and runs
+    # adaptive thinking by default when `thinking` is omitted.
     client = get_client()
     resp = client.messages.create(
         model=DEFAULT_MODEL,
         max_tokens=max_tokens,
-        temperature=temperature,
         system=system,
         messages=[{"role": "user", "content": user}],
     )
     return _response_text(resp)
 
 
-def complete_json(system: str, user: str, max_tokens: int = 2000, temperature: float = 0.8):
+def complete_json(system: str, user: str, max_tokens: int = 2000):
     """LLMにJSON生成を依頼し、パースして返す。パース失敗時はValueErrorを投げる。"""
-    raw = complete_text(system, user, max_tokens=max_tokens, temperature=temperature)
+    raw = complete_text(system, user, max_tokens=max_tokens)
     return _extract_json(raw)
 
 
